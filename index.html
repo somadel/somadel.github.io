@@ -482,23 +482,54 @@
             font-size: 14px;
         }
 
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
         /* Mobile Responsiveness */
         @media (max-width: 768px) {
             header {
-                flex-direction: column;
-                padding: 15px;
-                gap: 15px;
+                justify-content: space-between;
+                padding: 15px 20px;
+            }
+            .menu-btn {
+                display: block;
             }
             nav {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 10px;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 20px 0;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                display: none;
+                gap: 15px;
+            }
+            nav.active {
+                display: flex;
             }
             nav a {
-                font-size: 14px;
+                font-size: 16px;
+                width: 100%;
+                text-align: center;
+                padding: 10px 0;
+            }
+            .nav-btn {
+                width: max-content;
+                margin: 0 auto;
+            }
+            .custom-select {
+                margin: 0 auto;
             }
             .hero {
-                padding-top: 150px;
+                padding-top: 100px;
             }
             .btn-group {
                 flex-direction: column;
@@ -524,11 +555,7 @@
             section {
                 padding: 60px 20px;
             }
-            .custom-select {
-                margin-top: 5px;
-            }
         }
-
     </style>
 </head>
 
@@ -538,11 +565,14 @@
     <a href="#" class="logo">
         <i class="fa-solid fa-bolt"></i> SOMADEL
     </a>
-    <nav>
-        <a href="#about" data-i18n="nav_about">About Us</a>
-        <a href="#features" data-i18n="nav_features">Features</a>
-        <a href="#products" data-i18n="nav_products">Products</a>
-        <a href="#contact" class="nav-btn" data-i18n="nav_consultation">Consultation</a>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+    <nav id="nav-menu">
+        <a href="#about" data-i18n="nav_about" onclick="toggleMenu()">About Us</a>
+        <a href="#features" data-i18n="nav_features" onclick="toggleMenu()">Features</a>
+        <a href="#products" data-i18n="nav_products" onclick="toggleMenu()">Products</a>
+        <a href="#contact" class="nav-btn" data-i18n="nav_consultation" onclick="toggleMenu()">Consultation</a>
 
         <div class="custom-select" id="langSwitcher">
             <button class="select-btn" onclick="toggleDropdown()">
@@ -910,6 +940,12 @@
 
     function toggleDropdown() {
         document.getElementById('langDropdown').classList.toggle('show');
+    }
+
+    function toggleMenu() {
+        if(window.innerWidth <= 768) {
+            document.getElementById('nav-menu').classList.toggle('active');
+        }
     }
 
     window.onclick = function(event) {
