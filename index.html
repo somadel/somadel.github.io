@@ -482,6 +482,53 @@
             font-size: 14px;
         }
 
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px;
+                gap: 15px;
+            }
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            nav a {
+                font-size: 14px;
+            }
+            .hero {
+                padding-top: 150px;
+            }
+            .btn-group {
+                flex-direction: column;
+                width: 100%;
+            }
+            .btn-group .btn {
+                width: 100%;
+                text-align: center;
+            }
+            .contact-container {
+                padding: 20px;
+            }
+            .form-row {
+                grid-template-columns: 1fr !important;
+            }
+            .whatsapp {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+            }
+            section {
+                padding: 60px 20px;
+            }
+            .custom-select {
+                margin-top: 5px;
+            }
+        }
+
     </style>
 </head>
 
@@ -646,12 +693,12 @@
         </div>
 
         <form id="contact-form">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                <input type="text" name="name" id="name" placeholder="Full Name" required data-i18n-ph="contact_form_name">
-                <input type="email" name="email" id="email" placeholder="Email Address" required data-i18n-ph="contact_form_email">
+            <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <input type="text" aria-label="Full Name" name="name" id="name" placeholder="Full Name" required data-i18n-ph="contact_form_name">
+                <input type="email" aria-label="Email Address" name="email" id="email" placeholder="Email Address" required data-i18n-ph="contact_form_email">
             </div>
-            <input type="text" name="subject" id="subject" placeholder="Subject / Project Name" data-i18n-ph="contact_form_subject">
-            <textarea name="message" id="message" placeholder="Tell us about your requirements..." required data-i18n-ph="contact_form_message"></textarea>
+            <input type="text" aria-label="Subject" name="subject" id="subject" placeholder="Subject / Project Name" data-i18n-ph="contact_form_subject">
+            <textarea name="message" aria-label="Message" id="message" placeholder="Tell us about your requirements..." required data-i18n-ph="contact_form_message"></textarea>
             <button type="submit" id="submit-btn">
                 <span data-i18n="contact_form_btn" id="btn-text">Send Message</span>
                 <i class="fa-solid fa-paper-plane" id="btn-icon" style="margin-left: 8px;"></i>
