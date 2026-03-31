@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOMADEL | Industrial Electrical Engineering Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #0b3d91;
+            --primary-dark: #072a66;
+            --accent: #ffcc00;
+            --accent-hover: #e6b800;
+            --dark: #0a2540;
+            --light: #f4f6f9;
+            --gray: #6b7280;
+            --border: #e5e7eb;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fff;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--accent);
+        }
+
+        .custom-select {
+            position: relative;
+            display: inline-block;
+        }
+
+        .select-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 6px 12px;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--dark);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .select-btn:hover {
+            border-color: var(--primary);
+        }
+
+        .select-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            display: none;
+            flex-direction: column;
+            min-width: 100px;
+            z-index: 1000;
+            margin-top: 5px;
+            border: 1px solid var(--border);
+        }
+
+        .select-dropdown.show {
+            display: flex;
+        }
+
+        .select-dropdown button {
+            background: transparent;
+            border: none;
+            padding: 10px 15px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            border-radius: 0;
+        }
+
+        .select-dropdown button:hover {
+            background: var(--light);
+            color: var(--primary);
+        }
+
+        .lang-icon {
+            width: 20px;
+            height: 14px;
+            object-fit: cover;
+            border-radius: 2px;
+            box-shadow: 0 0 2px rgba(0,0,0,0.2);
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--dark);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .nav-btn {
+            background: var(--primary);
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 4px;
+        }
+
+        .nav-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .hero {
+            padding-top: 100px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(10, 37, 64, 0.8), rgba(11, 61, 145, 0.9)), url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            color: white;
+            padding-left: 5%;
+            padding-right: 5%;
+        }
+
+        .hero h1 {
+            font-size: clamp(36px, 5vw, 64px);
+            margin-bottom: 20px;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        .hero p {
+            max-width: 700px;
+            font-size: clamp(16px, 2vw, 20px);
+            margin-bottom: 40px;
+            color: #d1d5db;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            background: var(--accent);
+            color: var(--dark);
+            padding: 14px 28px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: background 0.2s, transform 0.2s;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        section {
+            padding: 80px 5%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: 32px;
+            color: var(--dark);
+            margin-bottom: 15px;
+            display: inline-block;
+            position: relative;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -10px;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .section-header p {
+            color: var(--gray);
+            font-size: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        @media(min-width: 768px) {
+            .grid { grid-template-columns: repeat(2, 1fr) }
+        }
+
+        @media(min-width: 1024px) {
+            .grid { grid-template-columns: repeat(3, 1fr) }
+        }
+
+        .card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border-top: 4px solid var(--primary);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .card i {
+            font-size: 32px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .card p {
+            color: #4b5563;
+            font-size: 15px;
+        }
+
+        .bg-light {
+            background-color: var(--light);
+            max-width: 100%;
+        }
+
+        .bg-light .inner-container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .cta {
+            background: var(--primary);
+            color: white;
+            padding: 60px 5%;
+            border-radius: 0;
+            text-align: center;
+            max-width: 100%;
+        }
+
+        .cta h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        @media(min-width: 768px) {
+            .contact-container { grid-template-columns: 1fr 1.5fr; }
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .contact-item i {
+            background: var(--light);
+            color: var(--primary);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 18px;
+        }
+
+        .contact-item h4 {
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .contact-item p {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        form input, form textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        form input:focus, form textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(11, 61, 145, 0.1);
+        }
+
+        form textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        button {
+            width: auto;
+            align-self: flex-start;
+            padding: 14px 30px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: var(--primary-dark);
+        }
+
+        .whatsapp {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 30px;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.4);
+            text-decoration: none;
+            z-index: 1000;
+            transition: transform 0.2s;
+        }
+
+        .whatsapp:hover {
+            transform: scale(1.1);
+        }
+
+        footer {
+            background: var(--dark);
+            color: #d1d5db;
+            padding: 60px 5% 20px;
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .footer-col p {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 14px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header>
+    <a href="#" class="logo">
+        <i class="fa-solid fa-bolt"></i> SOMADEL
+    </a>
+    <nav>
+        <a href="#about" data-i18n="nav_about">About Us</a>
+        <a href="#features" data-i18n="nav_features">Features</a>
+        <a href="#products" data-i18n="nav_products">Products</a>
+        <a href="#contact" class="nav-btn" data-i18n="nav_consultation">Consultation</a>
+
+        <div class="custom-select" id="langSwitcher">
+            <button class="select-btn" onclick="toggleDropdown()">
+                <img src="https://flagcdn.com/w20/gb.png" class="lang-icon" id="currentLangIcon" alt="EN"> <span id="currentLangText">EN</span> <i class="fa-solid fa-chevron-down" style="font-size: 10px; margin-left: 5px;"></i>
+            </button>
+            <div class="select-dropdown" id="langDropdown">
+                <button onclick="changeLang('en', 'https://flagcdn.com/w20/gb.png', 'EN')">
+                    <img src="https://flagcdn.com/w20/gb.png" class="lang-icon" alt="EN"> EN
+                </button>
+                <button onclick="changeLang('fr', 'https://flagcdn.com/w20/fr.png', 'FR')">
+                    <img src="https://flagcdn.com/w20/fr.png" class="lang-icon" alt="FR"> FR
+                </button>
+                <button onclick="changeLang('ar', 'https://flagcdn.com/w20/dz.png', 'AR')">
+                    <img src="https://flagcdn.com/w20/dz.png" class="lang-icon" alt="AR"> AR
+                </button>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1 data-i18n="hero_title">EURL SOMADEL Electrical Engineering</h1>
+    <p data-i18n="hero_desc">Specialized in the design, manufacturing, and supply of high-quality cable management systems for industrial and commercial applications.</p>
+    <div class="btn-group">
+        <a href="#contact" class="btn" data-i18n="hero_btn_quote">Get a Quote</a>
+        <a href="#products" class="btn btn-outline" data-i18n="hero_btn_services">Our Products</a>
+    </div>
+</section>
+
+<section id="about" class="bg-light">
+    <div class="inner-container">
+        <div class="section-header">
+            <h2 data-i18n="about_title">Overview – SOMADEL</h2>
+            <p data-i18n="about_desc">With a strong technical foundation, SOMADEL delivers reliable, safe, and efficient solutions tailored to modern electrical infrastructure needs.</p>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <i class="fa-solid fa-industry"></i>
+                <h3 data-i18n="about_card1_title">Core Activity</h3>
+                <p data-i18n="about_card1_desc">Electrical engineering solutions, cable management systems, and industrial infrastructure under our brand SOMAFIL.</p>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-certificate"></i>
+                <h3 data-i18n="about_card2_title">Technical Excellence</h3>
+                <p data-i18n="about_card2_desc">Compliance with standards: ISO 1416, NFA 97-121, NFA 91-122. Manufactured with top-quality materials.</p>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-handshake"></i>
+                <h3 data-i18n="about_card3_title">Value Proposition</h3>
+                <p data-i18n="about_card3_desc">High-quality manufacturing, flexible customization, and efficient cable management solutions.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="features">
+    <div class="section-header">
+        <h2 data-i18n="features_title">Features & Advantages</h2>
+        <p data-i18n="features_desc">Our solutions are used in industrial installations, commercial buildings, electrical networks, and infrastructure projects.</p>
+    </div>
+    <div class="grid">
+        <div class="card">
+            <i class="fa-solid fa-shield-halved"></i>
+            <h3 data-i18n="features_card1_title">Safety & Protection</h3>
+            <p data-i18n="features_card1_desc">Non-conductive insulation, safe for personnel, and complete electrical isolation from masses.</p>
+        </div>
+        <div class="card">
+            <i class="fa-solid fa-hammer"></i>
+            <h3 data-i18n="features_card2_title">Durability & Resistance</h3>
+            <p data-i18n="features_card2_desc">Moisture and corrosion-resistant galvanized steel with strong mechanical resistance.</p>
+        </div>
+        <div class="card">
+            <i class="fa-solid fa-wind"></i>
+            <h3 data-i18n="features_card3_title">Performance & Design</h3>
+            <p data-i18n="features_card3_desc">Excellent cable ventilation, lightweight mesh structure (50×100 mm), and aesthetically modern.</p>
+        </div>
+    </div>
+</section>
+
+<section id="products" class="bg-light">
+    <div class="inner-container">
+        <div class="section-header">
+            <h2 data-i18n="products_title">SOMAFIL Cable Trays</h2>
+            <p data-i18n="products_desc">Hot-dip galvanized steel wire covered with non-conductive insulating material. Designed for routing, protection, and organization.</p>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <i class="fa-solid fa-layer-group"></i>
+                <h3 data-i18n="products_card1_title">Technical Specs</h3>
+                <p data-i18n="products_card1_desc">4.40 mm steel wire. Wide range of dimensions from 50×50 mm to 400×100 mm. Custom dimensions available on request.</p>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-weight-hanging"></i>
+                <h3 data-i18n="products_card2_title">Load Capacity</h3>
+                <p data-i18n="products_card2_desc">Weight from 0.91 to 2.30 kg/m. Supports up to ~55.6 daN/m on a 1.5m span and ~34.5 daN/m on a 2m span.</p>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-box-open"></i>
+                <h3 data-i18n="products_card3_title">Packaging & Handling</h3>
+                <p data-i18n="products_card3_desc">Supplied in 2-meter bars, packed in compact plastic bundles for easy transport, fast installation, and reduced storage.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta">
+    <h2 data-i18n="cta_title">Ready to power up your next project?</h2>
+    <p style="margin-bottom: 25px; font-size: 18px; color: rgba(255,255,255,0.8);" data-i18n="cta_desc">Schedule a consultation with our engineering team today.</p>
+    <a href="#contact" class="btn" data-i18n="cta_btn">Reach Out Now</a>
+</section>
+
+<section id="contact">
+    <div class="section-header">
+        <h2 data-i18n="contact_title">Contact Us</h2>
+        <p data-i18n="contact_desc">Get in touch for quotes, technical inquiries, or partnership opportunities.</p>
+    </div>
+
+    <div class="contact-container">
+        <div class="contact-info">
+            <div class="contact-item">
+                <i class="fa-solid fa-location-dot"></i>
+                <div>
+                    <h4 data-i18n="contact_hq_title">Headquarters</h4>
+                    <p data-i18n="contact_hq_desc">Industrial Zone, Algiers, Algeria</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <i class="fa-solid fa-phone"></i>
+                <div>
+                    <h4 data-i18n="contact_phone_title">Phone</h4>
+                    <p>+213 541 486 513</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <i class="fa-solid fa-envelope"></i>
+                <div>
+                    <h4 data-i18n="contact_email_title">Email</h4>
+                    <p>somadel.km@gmail.com</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <i class="fa-regular fa-clock"></i>
+                <div>
+                    <h4 data-i18n="contact_hours_title">Business Hours</h4>
+                    <p data-i18n="contact_hours_desc">Sunday - Thursday: 8:00 AM - 5:00 PM</p>
+                </div>
+            </div>
+        </div>
+
+        <form id="contact-form">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <input type="text" name="name" id="name" placeholder="Full Name" required data-i18n-ph="contact_form_name">
+                <input type="email" name="email" id="email" placeholder="Email Address" required data-i18n-ph="contact_form_email">
+            </div>
+            <input type="text" name="subject" id="subject" placeholder="Subject / Project Name" data-i18n-ph="contact_form_subject">
+            <textarea name="message" id="message" placeholder="Tell us about your requirements..." required data-i18n-ph="contact_form_message"></textarea>
+            <button type="submit" id="submit-btn">
+                <span data-i18n="contact_form_btn" id="btn-text">Send Message</span>
+                <i class="fa-solid fa-paper-plane" id="btn-icon" style="margin-left: 8px;"></i>
+            </button>
+            <p id="form-status" style="margin-top: 15px; font-weight: bold; display: none; text-align: center; color: var(--primary);"></p>
+        </form>
+    </div>
+</section>
+
+<a href="https://wa.me/213541486513" class="whatsapp" target="_blank" rel="noopener noreferrer">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<footer>
+    <div class="footer-grid">
+        <div class="footer-col">
+            <div class="logo" style="color: white; margin-bottom: 15px;">
+                <i class="fa-solid fa-bolt"></i> SOMADEL
+            </div>
+            <p data-i18n="footer_desc">Your trusted partner in industrial electrical engineering, delivering excellence and innovation since establishment.</p>
+        </div>
+        <div class="footer-col">
+            <h3 data-i18n="footer_links_title">Quick Links</h3>
+            <p><a href="#about" style="color:#d1d5db; text-decoration:none;" data-i18n="nav_about">About Us</a></p>
+            <p><a href="#features" style="color:#d1d5db; text-decoration:none;" data-i18n="nav_features">Features</a></p>
+            <p><a href="#products" style="color:#d1d5db; text-decoration:none;" data-i18n="nav_products">Products</a></p>
+            <p><a href="#contact" style="color:#d1d5db; text-decoration:none;" data-i18n="contact_title">Contact Us</a></p>
+        </div>
+        <div class="footer-col">
+            <h3 data-i18n="footer_contact_title">Contact Details</h3>
+            <p>+213 541 486 513</p>
+            <p>somadel.km@gmail.com</p>
+            <div style="margin-top: 15px; display: flex; gap: 10px;">
+                <a href="#" style="color: white; font-size: 20px;"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#" style="color: white; font-size: 20px;"><i class="fa-brands fa-facebook"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 SOMADEL. <span data-i18n="footer_rights">All rights reserved.</span></p>
+    </div>
+</footer>
+
+<script>
+    const translations = {
+        en: {
+            nav_about: "About Us",
+            nav_features: "Features",
+            nav_products: "Products",
+            nav_consultation: "Consultation",
+            hero_title: "EURL SOMADEL Electrical Engineering",
+            hero_desc: "Specialized in the design, manufacturing, and supply of high-quality cable management systems for industrial and commercial applications.",
+            hero_btn_quote: "Get a Quote",
+            hero_btn_services: "Our Products",
+            about_title: "Overview – SOMADEL",
+            about_desc: "With a strong technical foundation, SOMADEL delivers reliable, safe, and efficient solutions tailored to modern electrical infrastructure needs.",
+            about_card1_title: "Core Activity",
+            about_card1_desc: "Electrical engineering solutions, cable management systems, and industrial infrastructure under our brand SOMAFIL.",
+            about_card2_title: "Technical Excellence",
+            about_card2_desc: "Compliance with standards: ISO 1416, NFA 97-121, NFA 91-122. Manufactured with top-quality materials.",
+            about_card3_title: "Value Proposition",
+            about_card3_desc: "High-quality manufacturing, flexible customization, and efficient cable management solutions.",
+            features_title: "Features & Advantages",
+            features_desc: "Our solutions are used in industrial installations, commercial buildings, electrical networks, and infrastructure projects.",
+            features_card1_title: "Safety & Protection",
+            features_card1_desc: "Non-conductive insulation, safe for personnel, and complete electrical isolation from masses.",
+            features_card2_title: "Durability & Resistance",
+            features_card2_desc: "Moisture and corrosion-resistant galvanized steel with strong mechanical resistance.",
+            features_card3_title: "Performance & Design",
+            features_card3_desc: "Excellent cable ventilation, lightweight mesh structure (50×100 mm), and aesthetically modern.",
+            products_title: "SOMAFIL Cable Trays",
+            products_desc: "Hot-dip galvanized steel wire covered with non-conductive insulating material. Designed for routing, protection, and organization.",
+            products_card1_title: "Technical Specs",
+            products_card1_desc: "4.40 mm steel wire. Wide range of dimensions from 50×50 mm to 400×100 mm. Custom dimensions available on request.",
+            products_card2_title: "Load Capacity",
+            products_card2_desc: "Weight from 0.91 to 2.30 kg/m. Supports up to ~55.6 daN/m on a 1.5m span and ~34.5 daN/m on a 2m span.",
+            products_card3_title: "Packaging & Handling",
+            products_card3_desc: "Supplied in 2-meter bars, packed in compact plastic bundles for easy transport, fast installation, and reduced storage.",
+            cta_title: "Ready to power up your next project?",
+            cta_desc: "Schedule a consultation with our engineering team today.",
+            cta_btn: "Reach Out Now",
+            contact_title: "Contact Us",
+            contact_desc: "Get in touch for quotes, technical inquiries, or partnership opportunities.",
+            contact_hq_title: "Headquarters",
+            contact_hq_desc: "Industrial Zone, Algiers, Algeria",
+            contact_phone_title: "Phone",
+            contact_email_title: "Email",
+            contact_hours_title: "Business Hours",
+            contact_hours_desc: "Sunday - Thursday: 8:00 AM - 5:00 PM",
+            contact_form_name: "Full Name",
+            contact_form_email: "Email Address",
+            contact_form_subject: "Subject / Project Name",
+            contact_form_message: "Tell us about your requirements...",
+            contact_form_btn: "Send Message",
+            footer_desc: "Your trusted partner in industrial electrical engineering, delivering excellence and innovation since establishment.",
+            footer_links_title: "Quick Links",
+            footer_contact_title: "Contact Details",
+            footer_rights: "All rights reserved."
+        },
+        fr: {
+            nav_about: "À Propos",
+            nav_features: "Avantages",
+            nav_products: "Produits",
+            nav_consultation: "Consultation",
+            hero_title: "EURL SOMADEL Ingénierie Électrique",
+            hero_desc: "Spécialisée dans la conception, la fabrication et la fourniture de systèmes de gestion de câbles de haute qualité pour les applications industrielles et commerciales.",
+            hero_btn_quote: "Obtenir un Devis",
+            hero_btn_services: "Nos Produits",
+            about_title: "Aperçu – SOMADEL",
+            about_desc: "Avec une base technique solide, SOMADEL offre des solutions fiables, sûres et efficaces adaptées aux besoins modernes des infrastructures électriques.",
+            about_card1_title: "Activité Principale",
+            about_card1_desc: "Solutions d'ingénierie électrique, systèmes de gestion de câbles et infrastructure industrielle sous notre marque SOMAFIL.",
+            about_card2_title: "Excellence Technique",
+            about_card2_desc: "Conformité aux normes : ISO 1416, NFA 97-121, NFA 91-122. Fabriqué avec des matériaux de qualité supérieure.",
+            about_card3_title: "Proposition de Valeur",
+            about_card3_desc: "Fabrication de haute qualité, personnalisation flexible et solutions efficaces de gestion des câbles.",
+            features_title: "Caractéristiques et Avantages",
+            features_desc: "Nos solutions sont utilisées dans les installations industrielles, les bâtiments commerciaux, les réseaux électriques et les projets d'infrastructure.",
+            features_card1_title: "Sécurité et Protection",
+            features_card1_desc: "Isolation non conductrice, sans danger pour le personnel, et isolation électrique complète des masses.",
+            features_card2_title: "Durabilité et Résistance",
+            features_card2_desc: "Acier galvanisé résistant à l'humidité et à la corrosion avec une forte résistance mécanique.",
+            features_card3_title: "Performance et Conception",
+            features_card3_desc: "Excellente ventilation des câbles, structure légère en treillis (50×100 mm) et esthétiquement moderne.",
+            products_title: "Chemins de Câbles SOMAFIL",
+            products_desc: "Fil d'acier galvanisé à chaud recouvert d'un matériau isolant non conducteur. Conçu pour le routage, la protection et l'organisation.",
+            products_card1_title: "Spécifications Techniques",
+            products_card1_desc: "Fil de fer de 4,40 mm. Large gamme de 50×50 mm à 400×100 mm. Dimensions personnalisées sur demande.",
+            products_card2_title: "Capacité de Charge",
+            products_card2_desc: "Poids de 0,91 à 2,30 kg/m. Supporte jusqu'à ~55,6 daN/m sur une portée de 1,5 m et ~34,5 daN/m sur 2 m.",
+            products_card3_title: "Emballage et Manutention",
+            products_card3_desc: "Fournis en barres de 2 mètres, emballés en paquets de plastique compacts pour un transport facile, une installation rapide et un stockage réduit.",
+            cta_title: "Prêt à alimenter votre prochain projet ?",
+            cta_desc: "Planifiez une consultation avec notre équipe d'ingénierie dès aujourd'hui.",
+            cta_btn: "Contactez-Nous",
+            contact_title: "Contactez-Nous",
+            contact_desc: "Contactez-nous pour des devis, des demandes techniques ou des opportunités de partenariat.",
+            contact_hq_title: "Siège Social",
+            contact_hq_desc: "Zone Industrielle, Alger, Algérie",
+            contact_phone_title: "Téléphone",
+            contact_email_title: "E-mail",
+            contact_hours_title: "Heures d'Ouverture",
+            contact_hours_desc: "Dimanche - Jeudi : 8h00 - 17h00",
+            contact_form_name: "Nom Complet",
+            contact_form_email: "Adresse E-mail",
+            contact_form_subject: "Sujet / Nom de Projet",
+            contact_form_message: "Parlez-nous de vos besoins...",
+            contact_form_btn: "Envoyer",
+            footer_desc: "Votre partenaire de confiance en ingénierie électrique industrielle, offrant excellence et innovation depuis sa création.",
+            footer_links_title: "Liens Rapides",
+            footer_contact_title: "Détails de Contact",
+            footer_rights: "Tous droits réservés."
+        },
+        ar: {
+            nav_about: "من نحن",
+            nav_features: "المميزات",
+            nav_products: "منتجاتنا",
+            nav_consultation: "استشارة",
+            hero_title: "EURL SOMADEL للهندسة الكهربائية",
+            hero_desc: "متخصصون في تصميم وتصنيع وتوريد أنظمة إدارة الكابلات عالية الجودة للتطبيقات الصناعية والتجارية.",
+            hero_btn_quote: "احصل على عرض أسعار",
+            hero_btn_services: "منتجاتنا",
+            about_title: "نبذة عن صوماديل",
+            about_desc: "بفضل الأساس الفني القوي، تقدم SOMADEL حلولاً موثوقة وآمنة وفعالة مصممة لتلبية احتياجات البنية التحتية الكهربائية الحديثة.",
+            about_card1_title: "النشاط الأساسي",
+            about_card1_desc: "حلول الهندسة الكهربائية، وأنظمة إدارة الكابلات، والبنية التحتية الصناعية تحت علامتنا التجارية SOMAFIL.",
+            about_card2_title: "التميز التقني",
+            about_card2_desc: "الامتثال للمعايير: ISO 1416 و NFA 97-121 و NFA 91-122. مصنعة بمواد عالية الجودة.",
+            about_card3_title: "القيمة المقترحة",
+            about_card3_desc: "تصنيع عالي الجودة، تخصيص مرن، وحلول فعالة لإدارة الكابلات بطريقة آمنة.",
+            features_title: "المميزات والتطبيقات",
+            features_desc: "تُستخدم حلولنا في المنشآت الصناعية والمباني التجارية والشبكات الكهربائية ومشاريع البنية التحتية.",
+            features_card1_title: "السلامة والحماية",
+            features_card1_desc: "عزل غير موصل، آمن للموظفين، وعزل كهربائي كامل عن الكتل.",
+            features_card2_title: "المتانة والمقاومة",
+            features_card2_desc: "فولاذ مجلفن مقاوم للرطوبة والتآكل مع مقاومة ميكانيكية قوية.",
+            features_card3_title: "الأداء والتصميم",
+            features_card3_desc: "تهوية ممتازة للكابلات، هيكل شبكي خفيف الوزن (50×100 مم)، وجمالي حديث يقاوم الغبار.",
+            products_title: "حوامل الكابلات SOMAFIL",
+            products_desc: "أسلاك فولاذية مجلفنة بالغمس الساخن مغطاة بمادة عازلة غير موصلة. مصممة لتوجيه الكابلات وحمايتها وتنظيمها بالكامل.",
+            products_card1_title: "المواصفات الفنية",
+            products_card1_desc: "سلك فولاذي 4.40 مم. نطاق واسع من 50×50 مم إلى 400×100 مم. أبعاد مخصصة متوفرة عند الطلب.",
+            products_card2_title: "سعة التحميل",
+            products_card2_desc: "الوزن من 0.91 إلى 2.30 كجم/متر. يتحمل حتى ~55.6 daN/m على مسافة 1.5 م و ~34.5 daN/m على 2 م.",
+            products_card3_title: "التعبئة والمناولة",
+            products_card3_desc: "تُورد في قضبان بطول 2 متر، معبأة في حزم بلاستيكية مدمجة لسهولة النقل والتركيب السريع وتقليل مساحة التخزين.",
+            cta_title: "هل أنت مستعد لدعم مشروعك القادم؟",
+            cta_desc: "حدد موعدًا لاستشارة فريقنا الهندسي اليوم.",
+            cta_btn: "تواصل معنا الآن",
+            contact_title: "اتصل بنا",
+            contact_desc: "تواصل معنا للحصول على عروض أسعار أو استفسارات فنية أو فرص شراكة.",
+            contact_hq_title: "المقر الرئيسي",
+            contact_hq_desc: "المنطقة الصناعية، الجزائر العاصمة، الجزائر",
+            contact_phone_title: "الهاتف",
+            contact_email_title: "البريد الإلكتروني",
+            contact_hours_title: "ساعات العمل",
+            contact_hours_desc: "الأحد - الخميس: 8:00 صباحًا - 5:00 مساءً",
+            contact_form_name: "الاسم الكامل",
+            contact_form_email: "البريد الإلكتروني",
+            contact_form_subject: "الموضوع / اسم المشروع",
+            contact_form_message: "أخبرنا عن متطلباتك...",
+            contact_form_btn: "إرسال رسالة",
+            footer_desc: "شريكك الموثوق في الهندسة الكهربائية الصناعية، نقدم التميز والابتكار منذ التأسيس.",
+            footer_links_title: "روابط سريعة",
+            footer_contact_title: "تفاصيل الاتصال",
+            footer_rights: "جميع الحقوق محفوظة."
+        }
+    };
+
+    function toggleDropdown() {
+        document.getElementById('langDropdown').classList.toggle('show');
+    }
+
+    window.onclick = function(event) {
+        if (!event.target.closest('.custom-select')) {
+            var dropdowns = document.getElementsByClassName("select-dropdown");
+            for (var i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+
+    function changeLang(lang, iconSrc, text) {
+        var dropdown = document.getElementById('langDropdown');
+        if (dropdown) dropdown.classList.remove('show');
+
+        if (iconSrc && text) {
+            document.getElementById('currentLangIcon').src = iconSrc;
+            document.getElementById('currentLangText').innerText = text;
+        }
+
+        document.documentElement.lang = lang;
+        if(lang === 'ar') {
+            document.documentElement.dir = 'rtl';
+        } else {
+            document.documentElement.dir = 'ltr';
+        }
+
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (translations[lang][key]) {
+                el.innerText = translations[lang][key];
+            }
+        });
+
+        document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+            const key = el.getAttribute('data-i18n-ph');
+            if (translations[lang][key]) {
+                el.placeholder = translations[lang][key];
+            }
+        });
+    }
+
+    // Initialize with English
+    changeLang('en');
+</script>
+
+<!-- EmailJS Script -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+    (function() {
+        // You'll need to replace 'YOUR_PUBLIC_KEY' with your actual EmailJS public key
+        emailjs.init("LCj2Grt_2aAM0T5Ib");
+    })();
+
+    document.getElementById('contact-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const btnText = document.getElementById('btn-text');
+        const btnIcon = document.getElementById('btn-icon');
+        const formStatus = document.getElementById('form-status');
+
+        const originalText = btnText.innerText;
+        btnText.innerText = "Sending...";
+        btnIcon.className = "fa-solid fa-spinner fa-spin";
+
+        // These IDs will need to be replaced with your actual EmailJS Service ID and Template ID
+        emailjs.sendForm('service_54hphvq', 'template_2g8d1dg', this)
+            .then(function() {
+                formStatus.style.display = 'block';
+                formStatus.style.color = '#10b981'; // Success green
+                formStatus.innerText = "Message sent successfully!";
+                document.getElementById('contact-form').reset();
+            }, function(error) {
+                formStatus.style.display = 'block';
+                formStatus.style.color = '#ef4444'; // Error red
+                formStatus.innerText = "Failed to send message: " + JSON.stringify(error);
+            })
+            .finally(function() {
+                btnText.innerText = originalText;
+                btnIcon.className = "fa-solid fa-paper-plane";
+
+                setTimeout(() => {
+                    formStatus.style.display = 'none';
+                }, 5000);
+            });
+    });
+</script>
+
+</body>
+</html>
+
